@@ -1,0 +1,32 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh", crossorigin="anonymous")
+    body
+
+        h1 Register
+
+        if errors
+            each error in errors
+                .alert.alert-danger=error
+
+        form(action="/create",method="POST")
+            .form-group
+                label(for="name") Name
+                input#name(type="text", name="name",class="form-control", value=values?values.name:"")
+            .form-group
+                label(for="phone") Phone
+                input#phone(type="text", name="phone",class="form-control", value=values?values.phone:"")
+            .form-group
+                label(for="email") Email
+                input#email(type="text", name="email",class="form-control", value=values?values.email:"")
+            .form-group
+                label(for="password") Password
+                input#password(type="password", name="password",class="form-control", value=values?values.password:"")
+            .form-group
+                label(for="confirm-password") Confirm Password
+                input#confirm-password(type="password", name="confirm-password",class="form-control", value=values?values.confirm-password:"")    
+
+            button(class="btn btn-primary") Register     
