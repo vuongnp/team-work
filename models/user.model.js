@@ -2,12 +2,25 @@ var   mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
-    _id: { type: Schema.Types.ObjectId, ref: 'Room' },
-    email: String,
-    name: String,
-    password: String,
+    email: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     phone: String,
-    roomIds:[{ type: Schema.Types.ObjectId, ref: 'Room' }]
+    avatar: {
+        type: String,
+    },
+    listRoom: {
+        type: Array
+    }
 });
 
 var User = mongoose.model('User',userSchema,'users');

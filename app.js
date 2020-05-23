@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+var session = require('express-session');
 var   bodyParser = require('body-parser');
 var   cookieParser = require('cookie-parser');
 
@@ -18,6 +19,12 @@ app.set('views','./views');
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(session({ 
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
 
 app.use(express.static('public'));
 

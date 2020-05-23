@@ -10,4 +10,8 @@ router.get('/:id?',controller.getRoom);
 
 router.post('/create',controller.createRoom);
 
+router.post('/join',controller.joinRoom);
+
+//router.post('/send',controller.sendMessage);
+
 module.exports=router;

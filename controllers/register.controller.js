@@ -11,7 +11,7 @@ module.exports.postCreate=function(req,res){
     //req.body.id=shortid.generate();
     var newuser = new User(req.body);
     newuser.password=md5(req.body.password);
-    newuser._id=new ObjectId();
+    
     newuser.save(function(err, res) {
         if (err) throw err;
         console.log(res.name + " saved to users collection.");

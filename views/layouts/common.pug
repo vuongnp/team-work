@@ -21,7 +21,7 @@ html(lang="en")
                     li.nav-item
                         a.nav-link(href='/users') Users
             if user
-                p= user.name
+                a(href='/users/'+user.id)=user.name
             a(href='/auth/logout') Logout
         .container       
             block content

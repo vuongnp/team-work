@@ -6,14 +6,16 @@ var md5 = require('md5');
 
 
 module.exports.index=async function(req,res){
-    //res.render('users/index',{
-    //    users: db.get('users').value()
-    //});//users/index.pug
-    //var users= await User.find();
-    //res.render('users/index',{
-    //    users: users
-    //});
-    User.findById(res.locals.user.id).
+    //res.locals.user.id
+    User.findById(req.session.user.id)
+    .exec(function(err,user){
+        if (err) console.log(err);
+        res.render('users/index',{
+            listRoom: user.listRoom,
+            user: user
+        })
+    });
+    /*User.findById(res.locals.user.id).
     populate('roomIds').
     exec(function(err,user){
         if (err) console.log(err);
@@ -21,7 +23,7 @@ module.exports.index=async function(req,res){
         res.render('users/index',{
             rooms: user.roomIds
         });
-    });
+    });*/
     /*var messs= await Mess.find();  
     res.render('users/index',{
         messages: messs

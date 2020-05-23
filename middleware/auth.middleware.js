@@ -2,12 +2,12 @@ var User = require('../models/user.model');
 
 module.exports.requireAuth=function(req,res,next){
     //console.log(req.cookies,req.signedCookies);
-    if(!req.signedCookies.userId){
+    if(!req.session.userId){
         res.redirect('/auth/login');
         return;
     }
-   
-    User.findById(req.signedCookies.userId , 
+    //req.signedCookies.userId 
+    User.findById(req.session.userId, 
         function(err,user) { 
             //console.log(user);
             if(err){
@@ -16,7 +16,8 @@ module.exports.requireAuth=function(req,res,next){
             if(!user){
                 res.redirect('/auth/login');
             }
-            res.locals.user = user;
+            //res.locals.user = user;
+            req.session.user= user;
             next();
         }
     );

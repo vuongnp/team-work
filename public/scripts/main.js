@@ -64,23 +64,64 @@ $(document).ready(function(){
         socket.emit("tao-room",$('#txtRoom').val());
     });
 });*/
-var socket = io("http://localhost:3000");
+
+//io_client = require("socket.io-client");
+//var socket = io_client("http://localhost:3000");
+//var Roomcontroller = require('../controllers/room.controller');
+var socket = io();
 
 
-function addMessages(message) {
-    $("#listMessages").append(`
-      <h4> ${message.name} </h4>
-      <p>  ${message.message} </p>`);
-  }
+socket.on('server-send-user-join-room', function(data){
+    console.log(data, ' join room');
+    
+});
 
-
-  function sendMessage(message) {
-    $.post('/messages', message);
-  }
+socket.on('server-send-message', function(data){
+    console.log(data);
+    if(data.room==$('#currentRoom').html()){
+        $("#listMessages").append("<div class='ms'>"+data.message.nameUser+": "+data.message.text+"  "+ "</div>");
+        $("#listMessages").append("<div class='time' style='font-size: 12px'>"+data.message.time.substring(12,17)+"</div>");
+    }
+   
+});
 
 $(document).ready(function(){
+    //alert("AAA");
+    $('#newRoom').hide();
     $('#btnLogin').click(function(){
-        alert('Login');
-        socket.emit("client-login");//,$("#txtUsername").val());
+        //alert('Login');
+        socket.emit("client-login", $('#email').val());//,$("#txtUsername").val());
     });
+    //$('#newRoom').hide();
+    $('#btnNew').click(function(){
+        //$('#newRoom').attr("hidden", false);
+        $('#newRoom').show(500);
+    });
+    $('#btnNewRoom').click(function(){
+        $('#newRoom').hide();
+        //$('#newRoom').attr("hidden", true);
+        socket.emit("create-room",$('#roomName').val());
+    });
+    $('#btnCloseNewRoom').click(function(){
+        //$('#newRoom').attr("hidden", true);
+        $('#newRoom').hide();
+    });
+    $('a').on('click',function(){
+        //$('#newRoom').hide();
+        //alert($(this).html());
+        var object={
+            currRoom: $('#currentRoom').html(),
+            nextRoom: $(this).html()
+        };
+        socket.emit("user-join-room",object);
+    });
+    $('#btnSendMessage').click(function(){
+        var messObj={
+            text: $('#txtMessage').val(),
+            nameUser: $('#nameUser').val(),
+            time: new Date(Date.now()).toLocaleString(),
+            room: $('#currentRoom').html()
+        };
+        socket.emit("user-send-message",messObj);
+    })
 });
