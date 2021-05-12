@@ -29,10 +29,13 @@ html(lang="en")
                         form#form-newRoom(action='/rooms/create',method="POST")
                             .form-group
                                 label(for="name") Room Name
-                                input#roomName(type="text", name="name",class="form-control", value=values?values.name:"")
+                                input#roomName(type="text", name="name",class="form-control", value=values?values.name:"", required)
                             .form-group
                                 label(for="code") Code
-                                input#code(type="text", name="code",class="form-control", value=values?values.code:"")
+                                input#code(type="text", name="code",class="form-control", value=values?values.code:"",required)
+                            .form-group
+                                span Random code
+                                input#useRandom(type="radio", name="useRandom")
                             .btn-control
                                 button#btnNewRoom(class="btn btn-primary") New Room
                                 div#btnCloseNewRoom(class="btn btn-primary") Cancel
@@ -70,7 +73,7 @@ html(lang="en")
                     .form-message    
                         .form-group                            
                             input#currentIdRoom(type="text", name="roomid",class="form-control", value="", hidden)
-                            input#nameUser(type="text", name="nameUser",class="form-control", value=user.name, hidden)
+                            //input#nameUser(type="text", name="nameUser",class="form-control", value=user.name, hidden)
                             input#txtMessage(type="text", name="message",class="form-control")
                         button#btnSendMessage(class="btn btn-primary") Send
                     //input#txtMessage(type='text', name='')

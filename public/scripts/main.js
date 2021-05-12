@@ -84,7 +84,15 @@ socket.on('server-send-message', function(data){
     }
    
 });
-
+function makeid(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+   
+    for (var i = 0; i < length; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+   
+    return text;
+  }
 $(document).ready(function(){
     //alert("AAA");
     $('#newRoom').hide();
@@ -96,6 +104,10 @@ $(document).ready(function(){
     $('#btnNew').click(function(){
         //$('#newRoom').attr("hidden", false);
         $('#newRoom').show(500);
+    });
+    $("input[name='useRandom']").change(function(){
+        var code = makeid(8);
+        $('#code').val(code);
     });
     $('#btnNewRoom').click(function(){
         $('#newRoom').hide();

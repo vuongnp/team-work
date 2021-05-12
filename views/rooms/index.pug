@@ -30,10 +30,13 @@ html(lang="en")
                         form#form-newRoom(action='/rooms/create',method="POST")
                             .form-group
                                 label(for="name") Room Name
-                                input#roomName(type="text", name="name",class="form-control", value=values?values.name:"")
+                                input#roomName(type="text", name="name",class="form-control", value=values?values.name:"",required)
                             .form-group
                                 label(for="code") Code
-                                input#code(type="text", name="code",class="form-control", value=values?values.code:"")
+                                input#code(type="text", name="code",class="form-control", value=values?values.code:"",required)
+                            .form-group
+                                span Random code
+                                input#useRandom(type="radio", name="useRandom")
                             .btn-control
                                 button#btnNewRoom(class="btn btn-primary") New Room
                                 div#btnCloseNewRoom(class="btn btn-primary") Cancel
